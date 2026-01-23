@@ -38,4 +38,15 @@ class InterFontPalette {
 
   TextStyle get extrabold =>
       TextStyle(fontSize: 14.sp, color: AppColors.black, fontWeight: FontWeight.w800);
+
+  /// Bottom Navigation Bar styles
+  TextStyle get bottomNavSelected =>
+      TextStyle(fontSize: 12.sp, color: AppColors.black, fontWeight: FontWeight.w600, height: 0);
+
+  TextStyle get bottomNavUnselected => TextStyle(
+    fontSize: 12.sp,
+    color: AppColors.textColorSecondary,
+    fontWeight: FontWeight.w600,
+    height: 0,
+  );
 }

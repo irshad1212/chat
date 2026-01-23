@@ -41,4 +41,7 @@ class AppColors {
     800: AppColors.primaryBlue,
     900: AppColors.primaryBlue,
   });
+
+  /// Border colors
+  static const Color borderGrey = Color(0xFFE7E7E7);
 }
