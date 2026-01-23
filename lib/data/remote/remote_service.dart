@@ -17,5 +17,9 @@ RemoteClient chatRemoteClient(Ref ref) {
 
 @riverpod
 RemoteClient dictionaryRemoteClient(Ref ref) {
-  return RemoteClientFactory.create(baseUrl: Endpoints.dictionaryBaseUrl, enableLogging: true);
+  return RemoteClientFactory.create(
+    baseUrl: Endpoints.dictionaryBaseUrl,
+    enableLogging: true,
+    responseParser: const DirectResponseParser(),
+  );
 }

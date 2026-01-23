@@ -9,6 +9,7 @@ class ChatState with _$ChatState {
   const factory ChatState({
     @Default([]) List<ChatMessage> messages,
     @Default(LoaderState.initial()) LoaderState<void> sendStatus,
+    @Default(false) bool isTyping,
   }) = _ChatState;
 
   factory ChatState.initial() => const ChatState();

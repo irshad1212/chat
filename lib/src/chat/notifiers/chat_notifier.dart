@@ -64,6 +64,9 @@ class ChatNotifier extends _$ChatNotifier {
   }
 
   Future<void> _fetchReply(String currentUserId) async {
+    // Set typing indicator
+    state = state.copyWith(isTyping: true);
+
     // Random ID between 1 and 500
     final randomId = Random().nextInt(500) + 1;
 
@@ -71,13 +74,14 @@ class ChatNotifier extends _$ChatNotifier {
 
     result.fold(
       (failure) {
-        state = state.copyWith(sendStatus: LoaderState.loadError(failure));
+        state = state.copyWith(sendStatus: LoaderState.loadError(failure), isTyping: false);
       },
       (commentDto) {
         final replyMessage = commentDto.toDomain(currentUserId: currentUserId, isOther: true);
         state = state.copyWith(
           messages: [...state.messages, replyMessage],
           sendStatus: const LoaderState.success(data: null),
+          isTyping: false,
         );
       },
     );

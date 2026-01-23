@@ -19,6 +19,7 @@ class Strings {
   static String daysAgo(int days) => '$days days ago';
 
   static const String online = 'Online';
+  static const String typing = 'typing...';
   static const String plus9 = '9+';
   static const String selfInitial = 'I';
 }

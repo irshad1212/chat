@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:chat/core/theme/colors.dart';
@@ -7,15 +8,18 @@ import 'package:chat/core/constants/strings.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/src/home/models/chat_tile_model.dart';
 import 'package:chat/src/home/views/widgets/avatar.dart';
+import 'package:chat/src/chat/notifiers/chat_notifier.dart';
 
-class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userId;
   final String userName;
 
   const ChatAppBar({super.key, required this.userId, required this.userName});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isTyping = ref.watch(chatNotifierProvider.select((s) => s.isTyping));
+
     return SafeArea(
       child: Container(
         decoration: const BoxDecoration(
@@ -36,15 +40,15 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Column(
-                crossAxisAlignment: .start,
-                mainAxisAlignment: .center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(userName, style: TextStyles.inter.chatAppBarTitle),
                   Text(
-                    Strings.online,
+                    isTyping ? Strings.typing : Strings.online,
                     style: TextStyles.inter.chatAppBarSubtitle.copyWith(
                       color: AppColors.textColorTertiary,
-                      fontWeight: .w600,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],

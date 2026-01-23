@@ -19,6 +19,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChatState {
   List<ChatMessage> get messages => throw _privateConstructorUsedError;
   LoaderState<void> get sendStatus => throw _privateConstructorUsedError;
+  bool get isTyping => throw _privateConstructorUsedError;
 
   /// Create a copy of ChatState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +33,11 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res, ChatState>;
   @useResult
-  $Res call({List<ChatMessage> messages, LoaderState<void> sendStatus});
+  $Res call({
+    List<ChatMessage> messages,
+    LoaderState<void> sendStatus,
+    bool isTyping,
+  });
 
   $LoaderStateCopyWith<void, $Res> get sendStatus;
 }
@@ -51,7 +56,11 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? messages = null, Object? sendStatus = null}) {
+  $Res call({
+    Object? messages = null,
+    Object? sendStatus = null,
+    Object? isTyping = null,
+  }) {
     return _then(
       _value.copyWith(
             messages: null == messages
@@ -62,6 +71,10 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
                 ? _value.sendStatus
                 : sendStatus // ignore: cast_nullable_to_non_nullable
                       as LoaderState<void>,
+            isTyping: null == isTyping
+                ? _value.isTyping
+                : isTyping // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -87,7 +100,11 @@ abstract class _$$ChatStateImplCopyWith<$Res>
   ) = __$$ChatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ChatMessage> messages, LoaderState<void> sendStatus});
+  $Res call({
+    List<ChatMessage> messages,
+    LoaderState<void> sendStatus,
+    bool isTyping,
+  });
 
   @override
   $LoaderStateCopyWith<void, $Res> get sendStatus;
@@ -106,7 +123,11 @@ class __$$ChatStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? messages = null, Object? sendStatus = null}) {
+  $Res call({
+    Object? messages = null,
+    Object? sendStatus = null,
+    Object? isTyping = null,
+  }) {
     return _then(
       _$ChatStateImpl(
         messages: null == messages
@@ -117,6 +138,10 @@ class __$$ChatStateImplCopyWithImpl<$Res>
             ? _value.sendStatus
             : sendStatus // ignore: cast_nullable_to_non_nullable
                   as LoaderState<void>,
+        isTyping: null == isTyping
+            ? _value.isTyping
+            : isTyping // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -128,6 +153,7 @@ class _$ChatStateImpl implements _ChatState {
   const _$ChatStateImpl({
     final List<ChatMessage> messages = const [],
     this.sendStatus = const LoaderState.initial(),
+    this.isTyping = false,
   }) : _messages = messages;
 
   final List<ChatMessage> _messages;
@@ -142,10 +168,13 @@ class _$ChatStateImpl implements _ChatState {
   @override
   @JsonKey()
   final LoaderState<void> sendStatus;
+  @override
+  @JsonKey()
+  final bool isTyping;
 
   @override
   String toString() {
-    return 'ChatState(messages: $messages, sendStatus: $sendStatus)';
+    return 'ChatState(messages: $messages, sendStatus: $sendStatus, isTyping: $isTyping)';
   }
 
   @override
@@ -155,7 +184,9 @@ class _$ChatStateImpl implements _ChatState {
             other is _$ChatStateImpl &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
             (identical(other.sendStatus, sendStatus) ||
-                other.sendStatus == sendStatus));
+                other.sendStatus == sendStatus) &&
+            (identical(other.isTyping, isTyping) ||
+                other.isTyping == isTyping));
   }
 
   @override
@@ -163,6 +194,7 @@ class _$ChatStateImpl implements _ChatState {
     runtimeType,
     const DeepCollectionEquality().hash(_messages),
     sendStatus,
+    isTyping,
   );
 
   /// Create a copy of ChatState
@@ -178,12 +210,15 @@ abstract class _ChatState implements ChatState {
   const factory _ChatState({
     final List<ChatMessage> messages,
     final LoaderState<void> sendStatus,
+    final bool isTyping,
   }) = _$ChatStateImpl;
 
   @override
   List<ChatMessage> get messages;
   @override
   LoaderState<void> get sendStatus;
+  @override
+  bool get isTyping;
 
   /// Create a copy of ChatState
   /// with the given fields replaced by the non-null parameter values.
