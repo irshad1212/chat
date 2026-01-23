@@ -1,302 +1,146 @@
+import 'package:chat/core/constants/strings.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/src/dictionary/models/word_definition_model.dart';
 import 'package:chat/src/dictionary/repository/dictionary_repository_provider.dart';
+import 'package:chat/src/dictionary/widgets/dictionary_header.dart';
+import 'package:chat/src/dictionary/widgets/meaning_item.dart';
+import 'package:chat/src/shared/widgets/slide_fade_transition.dart';
 import 'package:chat/utils/helpers/extensions.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:remote_client/remote_client.dart';
 
-class WordMeaningBottomSheet extends ConsumerWidget {
+class WordMeaningBottomSheet extends ConsumerStatefulWidget {
   final String word;
 
   const WordMeaningBottomSheet({super.key, required this.word});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      width: context.sw(),
-      height: context.sh(),
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 40.w,
-            height: 4.h,
-            margin: EdgeInsets.only(top: 12.h, bottom: 8.h),
-            decoration: BoxDecoration(
-              color: AppColors.textColorTertiary.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2.r),
-            ),
-          ),
+  ConsumerState<WordMeaningBottomSheet> createState() => _WordMeaningBottomSheetState();
+}
 
-          Expanded(
-            child: FutureBuilder<Either<Failure, WordDefinitionModel>>(
-              future: ref.read(dictionaryRepositoryProvider).getWordDefinition(word),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircularProgressIndicator(color: AppColors.primaryBlue),
-                      SizedBox(height: 16.h),
-                      Text('Loading...', style: TextStyles.inter.medium),
-                    ],
-                  );
-                }
+class _WordMeaningBottomSheetState extends ConsumerState<WordMeaningBottomSheet> {
+  late Future<Either<Failure, WordDefinitionModel>> _definitionFuture;
 
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: Text('Error loading definition', style: TextStyles.inter.regular),
-                  );
-                }
-
-                return snapshot.data!.fold(
-                  (failure) => Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(24.r),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search_off, size: 48.sp, color: AppColors.textColorTertiary),
-                          SizedBox(height: 16.h),
-                          Text(
-                            'No definition found',
-                            style: TextStyles.inter.bold.copyWith(fontSize: 18.sp),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            'Try searching for another word',
-                            style: TextStyles.inter.regular.copyWith(
-                              color: AppColors.textColorSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  (definition) => _buildDefinitionContent(definition),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    _definitionFuture = ref.read(dictionaryRepositoryProvider).getWordDefinition(widget.word);
   }
 
-  Widget _buildDefinitionContent(WordDefinitionModel definition) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Word header with phonetic
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                definition.word,
-                style: TextStyles.inter.extrabold.copyWith(fontSize: 32.sp, height: 1.2),
-              ),
-              6.verticalSpace,
-              if (definition.phonetic != null || definition.phonetics.isNotEmpty) ...[
-                Row(
-                  children: [
-                    Icon(Icons.volume_up, size: 18.sp, color: AppColors.primaryBlue),
-                    SizedBox(width: 6.w),
-                    Text(
-                      definition.phonetic ?? definition.phonetics.first.text ?? '',
-                      style: TextStyles.inter.medium.copyWith(
-                        fontSize: 16.sp,
-                        color: AppColors.primaryBlue,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ],
-          ),
-
-          12.verticalSpace,
-
-          // Divider
-          Container(height: 1.h, color: AppColors.textColorTertiary.withValues(alpha: 0.2)),
-
-          SizedBox(height: 20.h),
-
-          // Meanings
-          ...definition.meanings.asMap().entries.map((entry) {
-            final isLast = entry.key == definition.meanings.length - 1;
-            return _buildMeaning(entry.value, isLast);
-          }),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMeaning(MeaningModel meaning, bool isLast) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: isLast ? 0 : 28.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Part of speech badge
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-            decoration: BoxDecoration(
-              color: AppColors.primaryBlue.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: Text(
-              meaning.partOfSpeech,
-              style: TextStyles.inter.bold.copyWith(fontSize: 14.sp, color: AppColors.primaryBlue),
-            ),
-          ),
-
-          SizedBox(height: 16.h),
-
-          // Definitions
-          ...meaning.definitions.asMap().entries.map((entry) {
-            return _buildDefinition(entry.key + 1, entry.value);
-          }),
-
-          // Synonyms
-          if (meaning.synonyms.isNotEmpty) ...[
-            SizedBox(height: 12.h),
-            _buildWordChips('Synonyms', meaning.synonyms, AppColors.primaryBlue),
-          ],
-
-          // Antonyms
-          if (meaning.antonyms.isNotEmpty) ...[
-            SizedBox(height: 12.h),
-            _buildWordChips('Antonyms', meaning.antonyms, Colors.red.shade400),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDefinition(int index, DefinitionModel definition) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 16.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 24.w,
-                height: 24.w,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.textColorTertiary.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  '$index',
-                  style: TextStyles.inter.semibold.copyWith(
-                    fontSize: 12.sp,
-                    color: AppColors.textColorSecondary,
-                  ),
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      definition.definition,
-                      style: TextStyles.inter.regular.copyWith(fontSize: 15.sp, height: 1.5),
-                    ),
-                    if (definition.example != null) ...[
-                      SizedBox(height: 8.h),
-                      Container(
-                        padding: EdgeInsets.all(12.r),
-                        decoration: BoxDecoration(
-                          color: AppColors.textColorTertiary.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border.all(
-                            color: AppColors.textColorTertiary.withValues(alpha: 0.1),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '"',
-                              style: TextStyles.inter.bold.copyWith(
-                                fontSize: 18.sp,
-                                color: AppColors.textColorSecondary,
-                              ),
-                            ),
-                            SizedBox(width: 4.w),
-                            Expanded(
-                              child: Text(
-                                definition.example!,
-                                style: TextStyles.inter.regular.copyWith(
-                                  fontSize: 14.sp,
-                                  fontStyle: FontStyle.italic,
-                                  color: AppColors.textColorSecondary,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWordChips(String label, List<String> words, Color color) {
-    if (words.isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyles.inter.semibold.copyWith(
-            fontSize: 13.sp,
-            color: AppColors.textColorSecondary,
-          ),
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: context.sw(),
+        height: context.sh(),
+        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: .circular(24.r)),
         ),
-        SizedBox(height: 8.h),
-        Wrap(
-          spacing: 8.w,
-          runSpacing: 8.h,
-          children: words.take(6).map((word) {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+        child: Column(
+          mainAxisSize: .min,
+          children: [
+            // Drag handle
+            Container(
+              width: 40.w,
+              height: 4.h,
+              margin: .only(top: 12.h, bottom: 8.h),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6.r),
-                border: Border.all(color: color.withValues(alpha: 0.2)),
+                color: AppColors.textColorTertiary.withValues(alpha: 0.3),
+                borderRadius: .circular(2.r),
               ),
-              child: Text(
-                word,
-                style: TextStyles.inter.medium.copyWith(fontSize: 13.sp, color: color),
+            ),
+
+            Expanded(
+              child: FutureBuilder<Either<Failure, WordDefinitionModel>>(
+                future: _definitionFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == .waiting) {
+                    return _buildLoadingState();
+                  }
+
+                  if (!snapshot.hasData) {
+                    return _buildErrorState();
+                  }
+
+                  return snapshot.data!.fold(
+                    (failure) => _buildNotFoundState(),
+                    (definition) => _buildContent(definition),
+                  );
+                },
               ),
-            );
-          }).toList(),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return Column(
+      mainAxisAlignment: .center,
+      children: [
+        const CircularProgressIndicator(color: AppColors.primaryBlue),
+        SizedBox(height: 16.h),
+        Text(Strings.loading, style: TextStyles.inter.medium),
       ],
+    );
+  }
+
+  Widget _buildErrorState() {
+    return Center(child: Text(Strings.errorLoadingDefinition, style: TextStyles.inter.regular));
+  }
+
+  Widget _buildNotFoundState() {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(24.r),
+        child: Column(
+          mainAxisAlignment: .center,
+          children: [
+            Icon(Icons.search_off, size: 48.sp, color: AppColors.textColorTertiary),
+            SizedBox(height: 16.h),
+            Text(Strings.noDefinitionFound, style: TextStyles.inter.dictionaryNotFoundTitle),
+            SizedBox(height: 8.h),
+            Text(
+              Strings.trySearchingAnotherWord,
+              style: TextStyles.inter.dictionaryNotFoundSubtitle,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(WordDefinitionModel definition) {
+    return SlideFadeTransition(
+      slideOffset: 4,
+      slideDuration: const Duration(milliseconds: 250),
+      child: Column(
+        children: [
+          // Sticky header
+          DictionaryHeader(definition: definition),
+
+          // Scrollable meanings
+          Expanded(
+            child: SingleChildScrollView(
+              padding: .symmetric(horizontal: 24.w, vertical: 20.h),
+              child: Column(
+                crossAxisAlignment: .start,
+                children: definition.meanings.asMap().entries.map((entry) {
+                  final isLast = entry.key == definition.meanings.length - 1;
+                  return MeaningItem(meaning: entry.value, isLast: isLast);
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

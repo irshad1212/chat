@@ -89,4 +89,43 @@ class InterFontPalette {
 
   TextStyle get countBadge =>
       TextStyle(fontSize: 10.sp, color: AppColors.white, fontWeight: FontWeight.bold);
+
+  /// Dictionary styles
+  TextStyle get dictionaryWord =>
+      TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w800, color: AppColors.black, height: 1.2);
+
+  TextStyle get dictionaryPhonetic =>
+      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryBlue);
+
+  TextStyle get dictionaryPartOfSpeech =>
+      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryBlue);
+
+  TextStyle get dictionaryDefinition =>
+      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400, color: AppColors.black, height: 1.5);
+
+  TextStyle get dictionaryExampleQuote =>
+      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.textColorSecondary);
+
+  TextStyle get dictionaryExampleText => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.italic,
+    color: AppColors.textColorSecondary,
+    height: 1.4,
+  );
+
+  TextStyle get dictionaryIndex =>
+      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: AppColors.textColorSecondary);
+
+  TextStyle get dictionaryChipLabel =>
+      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: AppColors.textColorSecondary);
+
+  TextStyle get dictionaryChipText =>
+      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500); // Color is dynamic
+
+  TextStyle get dictionaryNotFoundTitle =>
+      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.black);
+
+  TextStyle get dictionaryNotFoundSubtitle =>
+      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400, color: AppColors.textColorSecondary);
 }

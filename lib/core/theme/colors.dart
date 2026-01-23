@@ -58,4 +58,7 @@ class AppColors {
 
   /// Shadows
   static Color boxShadow = const Color(0xFF000000).withValues(alpha: 0.04);
+
+  /// Dictionary
+  static const Color antonymRed = Color(0xFFEF5350); // Red 400
 }

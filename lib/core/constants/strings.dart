@@ -22,4 +22,12 @@ class Strings {
   static const String typing = 'typing...';
   static const String plus9 = '9+';
   static const String selfInitial = 'I';
+
+  /// Dictionary
+  static const String synonyms = 'Synonyms';
+  static const String antonyms = 'Antonyms';
+  static const String loading = 'Loading...';
+  static const String errorLoadingDefinition = 'Error loading definition';
+  static const String noDefinitionFound = 'No definition found';
+  static const String trySearchingAnotherWord = 'Try searching for another word';
 }
