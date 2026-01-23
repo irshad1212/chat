@@ -1,0 +1,1 @@
+enum ChatTileType { user, history }

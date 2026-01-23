@@ -49,4 +49,18 @@ class InterFontPalette {
     fontWeight: FontWeight.w600,
     height: 0,
   );
+
+  /// Chat Tile styles
+  TextStyle get chatTileTitle => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textColor,
+    letterSpacing: 0.5,
+  );
+
+  TextStyle get chatTileSubtitle =>
+      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: AppColors.textColorSecondary);
+
+  TextStyle get countBadge =>
+      TextStyle(fontSize: 10.sp, color: AppColors.white, fontWeight: FontWeight.bold);
 }

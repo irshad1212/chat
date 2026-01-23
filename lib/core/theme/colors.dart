@@ -28,6 +28,11 @@ class AppColors {
   static const Color textColorSecondary = Color(0xFF4A5565);
   static const Color textColorTertiary = Color(0xFF6B7282);
 
+  /// other
+  static const Color green = Color(0xFF00C764);
+  static const Color splashColor = Color(0xFFF9FAFB);
+  static const Color highlightColor = Color.fromARGB(255, 240, 244, 248);
+
   /// Material Primary
   static const MaterialColor materialPrimary = MaterialColor(0xFF165DFC, <int, Color>{
     50: AppColors.primaryBlue,
@@ -44,4 +49,5 @@ class AppColors {
 
   /// Border colors
   static const Color borderGrey = Color(0xFFE7E7E7);
+  static const Color borderLight = Color(0xFFE6E7EB);
 }

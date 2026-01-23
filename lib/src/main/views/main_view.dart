@@ -68,7 +68,7 @@ class _MainViewState extends State<MainView> {
           data: ThemeData(splashColor: Colors.transparent, highlightColor: Colors.transparent),
           child: DecoratedBox(
             decoration: const BoxDecoration(
-              border: Border(top: BorderSide(width: 0.8, color: AppColors.borderGrey)),
+              border: Border(top: BorderSide(width: 1, color: Color(0xffE6E7EB))),
             ),
             child: ValueListenableBuilder(
               valueListenable: selectedIndex,
