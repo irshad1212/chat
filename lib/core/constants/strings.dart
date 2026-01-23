@@ -6,6 +6,7 @@ class Strings {
   static const String settings = 'Settings';
   static const String users = 'Users';
   static const String chatHistory = 'Chat History';
+  static const String typeMessage = 'Type a message...';
 
   /// Time ago strings
   static const String justNow = 'Just now';
@@ -19,4 +20,5 @@ class Strings {
 
   static const String online = 'Online';
   static const String plus9 = '9+';
+  static const String selfInitial = 'I';
 }

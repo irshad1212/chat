@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:chat/src/home/models/chat_tile_model.dart';
 import 'package:chat/src/home/views/widgets/chat_tile.dart';
 import 'package:chat/src/shared/widgets/slide_fade_transition.dart';
+import 'package:chat/utils/routes/app_routes.dart';
 
 class HistoryList extends StatelessWidget {
   const HistoryList({super.key, required this.list});
@@ -18,7 +19,19 @@ class HistoryList extends StatelessWidget {
         key: const PageStorageKey<String>('history_list'),
         itemCount: list.length,
         itemBuilder: (ctx, index) {
-          return ChatTile.history(model: list[index], onTap: () {});
+          return ChatTile.history(
+            model: list[index],
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.routeChat,
+                arguments: {
+                  'userId': list[index].userId,
+                  'userName': list[index].fullName ?? 'User',
+                },
+              );
+            },
+          );
         },
       ),
     );

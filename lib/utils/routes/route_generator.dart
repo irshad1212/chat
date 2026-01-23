@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chat/src/chat/views/chat_page.dart';
 import 'package:chat/src/main/views/main_view.dart';
 import 'package:chat/src/splash/views/splash_view.dart';
 import 'package:chat/utils/helpers/route_config.dart';
@@ -14,6 +15,18 @@ enum RouteTransition { standard, slideUp, fade }
 class RouteGenerator {
   static final Map<String, RouteConfig> _routes = {
     AppRoutes.initial: RouteConfig(builder: (_) => const SplashView()),
+    AppRoutes.routeChat: RouteConfig(
+      builder: (args) {
+        if (args is Map<String, dynamic>) {
+          return ChatPage(
+            userId: args['userId'],
+            userName: args['userName'],
+            profileImage: args['profileImage'],
+          );
+        }
+        return const Scaffold(body: Center(child: Text('Error: Invalid arguments for chat route')));
+      },
+    ),
   };
 
   static Route generateRoute(RouteSettings settings) {

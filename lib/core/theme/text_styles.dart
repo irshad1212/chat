@@ -61,6 +61,32 @@ class InterFontPalette {
   TextStyle get chatTileSubtitle =>
       TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: AppColors.textColorSecondary);
 
+  /// Chat App Bar styles
+  TextStyle get chatAppBarTitle => TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600);
+
+  TextStyle get chatAppBarSubtitle => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textColorTertiary, // Default, can be overridden
+  );
+
+  /// Message Bubble styles
+  TextStyle get messageBubbleText => TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500);
+
+  TextStyle get messageBubbleTime =>
+      TextStyle(fontSize: 12.sp, color: AppColors.textColorTertiary, fontWeight: FontWeight.w500);
+
+  /// Chat Avatar styles
+  TextStyle get chatAvatarInitial =>
+      TextStyle(fontSize: 10.sp, color: AppColors.white, fontWeight: FontWeight.bold);
+
+  /// Input styles
+  TextStyle get inputHint =>
+      TextStyle(color: AppColors.textColorTertiary, fontSize: 14.sp, fontWeight: FontWeight.w400);
+
+  TextStyle get inputText =>
+      TextStyle(fontSize: 14.sp, color: AppColors.black, fontWeight: FontWeight.w500);
+
   TextStyle get countBadge =>
       TextStyle(fontSize: 10.sp, color: AppColors.white, fontWeight: FontWeight.bold);
 }
