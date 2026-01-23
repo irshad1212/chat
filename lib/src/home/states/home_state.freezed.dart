@@ -19,9 +19,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   int get tabIndex => throw _privateConstructorUsedError;
   bool get isAppBarVisible => throw _privateConstructorUsedError;
-  LoaderState<List<ChatTileArgs>> get userListState =>
+  LoaderState<List<UserTileModel>> get userListState =>
       throw _privateConstructorUsedError;
-  LoaderState<List<ChatTileArgs>> get historyListState =>
+  LoaderState<List<HistoryTileModel>> get historyListState =>
       throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
@@ -39,12 +39,12 @@ abstract class $HomeStateCopyWith<$Res> {
   $Res call({
     int tabIndex,
     bool isAppBarVisible,
-    LoaderState<List<ChatTileArgs>> userListState,
-    LoaderState<List<ChatTileArgs>> historyListState,
+    LoaderState<List<UserTileModel>> userListState,
+    LoaderState<List<HistoryTileModel>> historyListState,
   });
 
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState;
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState;
+  $LoaderStateCopyWith<List<UserTileModel>, $Res> get userListState;
+  $LoaderStateCopyWith<List<HistoryTileModel>, $Res> get historyListState;
 }
 
 /// @nodoc
@@ -80,11 +80,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
             userListState: null == userListState
                 ? _value.userListState
                 : userListState // ignore: cast_nullable_to_non_nullable
-                      as LoaderState<List<ChatTileArgs>>,
+                      as LoaderState<List<UserTileModel>>,
             historyListState: null == historyListState
                 ? _value.historyListState
                 : historyListState // ignore: cast_nullable_to_non_nullable
-                      as LoaderState<List<ChatTileArgs>>,
+                      as LoaderState<List<HistoryTileModel>>,
           )
           as $Val,
     );
@@ -94,8 +94,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState {
-    return $LoaderStateCopyWith<List<ChatTileArgs>, $Res>(
+  $LoaderStateCopyWith<List<UserTileModel>, $Res> get userListState {
+    return $LoaderStateCopyWith<List<UserTileModel>, $Res>(
       _value.userListState,
       (value) {
         return _then(_value.copyWith(userListState: value) as $Val);
@@ -107,8 +107,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState {
-    return $LoaderStateCopyWith<List<ChatTileArgs>, $Res>(
+  $LoaderStateCopyWith<List<HistoryTileModel>, $Res> get historyListState {
+    return $LoaderStateCopyWith<List<HistoryTileModel>, $Res>(
       _value.historyListState,
       (value) {
         return _then(_value.copyWith(historyListState: value) as $Val);
@@ -129,14 +129,14 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   $Res call({
     int tabIndex,
     bool isAppBarVisible,
-    LoaderState<List<ChatTileArgs>> userListState,
-    LoaderState<List<ChatTileArgs>> historyListState,
+    LoaderState<List<UserTileModel>> userListState,
+    LoaderState<List<HistoryTileModel>> historyListState,
   });
 
   @override
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState;
+  $LoaderStateCopyWith<List<UserTileModel>, $Res> get userListState;
   @override
-  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState;
+  $LoaderStateCopyWith<List<HistoryTileModel>, $Res> get historyListState;
 }
 
 /// @nodoc
@@ -171,11 +171,11 @@ class __$$HomeStateImplCopyWithImpl<$Res>
         userListState: null == userListState
             ? _value.userListState
             : userListState // ignore: cast_nullable_to_non_nullable
-                  as LoaderState<List<ChatTileArgs>>,
+                  as LoaderState<List<UserTileModel>>,
         historyListState: null == historyListState
             ? _value.historyListState
             : historyListState // ignore: cast_nullable_to_non_nullable
-                  as LoaderState<List<ChatTileArgs>>,
+                  as LoaderState<List<HistoryTileModel>>,
       ),
     );
   }
@@ -199,10 +199,10 @@ class _$HomeStateImpl implements _HomeState {
   final bool isAppBarVisible;
   @override
   @JsonKey()
-  final LoaderState<List<ChatTileArgs>> userListState;
+  final LoaderState<List<UserTileModel>> userListState;
   @override
   @JsonKey()
-  final LoaderState<List<ChatTileArgs>> historyListState;
+  final LoaderState<List<HistoryTileModel>> historyListState;
 
   @override
   String toString() {
@@ -246,8 +246,8 @@ abstract class _HomeState implements HomeState {
   const factory _HomeState({
     final int tabIndex,
     final bool isAppBarVisible,
-    final LoaderState<List<ChatTileArgs>> userListState,
-    final LoaderState<List<ChatTileArgs>> historyListState,
+    final LoaderState<List<UserTileModel>> userListState,
+    final LoaderState<List<HistoryTileModel>> historyListState,
   }) = _$HomeStateImpl;
 
   @override
@@ -255,9 +255,9 @@ abstract class _HomeState implements HomeState {
   @override
   bool get isAppBarVisible;
   @override
-  LoaderState<List<ChatTileArgs>> get userListState;
+  LoaderState<List<UserTileModel>> get userListState;
   @override
-  LoaderState<List<ChatTileArgs>> get historyListState;
+  LoaderState<List<HistoryTileModel>> get historyListState;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.

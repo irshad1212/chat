@@ -149,20 +149,9 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
   }
 
   void _onScroll() {
-    final currentIndex = ref.read(homeNotifierProvider).tabIndex;
-    if (currentIndex != 0) return;
-
-    final isAppBarVisible = ref.read(homeNotifierProvider).isAppBarVisible;
-
-    if (_scrollController.position.userScrollDirection == .reverse) {
-      if (isAppBarVisible) {
-        ref.read(homeNotifierProvider.notifier).setAppBarVisibility(false);
-      }
-    } else if (_scrollController.position.userScrollDirection == .forward) {
-      if (!isAppBarVisible) {
-        ref.read(homeNotifierProvider.notifier).setAppBarVisibility(true);
-      }
-    }
+    ref
+        .read(homeNotifierProvider.notifier)
+        .handleScroll(_scrollController.position.userScrollDirection);
   }
 
   void _onTabChanged() {

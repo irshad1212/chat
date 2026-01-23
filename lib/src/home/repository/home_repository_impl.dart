@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 import 'package:chat/src/home/dtos/chat_tile_dto.dart';
-import 'package:chat/src/home/models/chat_tile_args.dart';
+import 'package:chat/src/home/models/chat_tile_model.dart';
 import 'package:chat/src/home/repository/home_repository.dart';
 import 'package:remote_client/remote_client.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   @override
-  Future<Either<Failure, dynamic>> getMessageList() async {
+  Future<Either<Failure, List<HistoryTileModel>>> getMessageList() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
       final List<dynamic> jsonList = jsonDecode(_mockChatHistoryData);
-      final List<ChatTileArgs> list = jsonList
-          .map((e) => ChatTileDto.fromJson(e).toDomain())
+      final List<HistoryTileModel> list = jsonList
+          .map((e) => HistoryTileDto.fromJson(e).toDomain())
           .toList();
       return Right(list);
     } catch (e) {
@@ -21,12 +21,12 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, dynamic>> getUserList() async {
+  Future<Either<Failure, List<UserTileModel>>> getUserList() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
       final List<dynamic> jsonList = jsonDecode(_mockUserData);
-      final List<ChatTileArgs> list = jsonList
-          .map((e) => ChatTileDto.fromJson(e).toDomain())
+      final List<UserTileModel> list = jsonList
+          .map((e) => UserTileDto.fromJson(e).toDomain())
           .toList();
       return Right(list);
     } catch (e) {

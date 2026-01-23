@@ -1,8 +1,8 @@
-import 'package:chat/src/home/models/chat_tile_args.dart';
 import 'package:chat/src/home/repository/home_repository.dart';
 import 'package:chat/src/home/repository/home_repository_provider.dart';
 import 'package:chat/src/home/states/home_state.dart';
 import 'package:chat/utils/helpers/loader_state.dart';
+import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_notifier.g.dart';
@@ -36,16 +36,13 @@ class HomeNotifier extends _$HomeNotifier {
     final userResult = await _repository.getUserList();
     userResult.fold(
       (l) => state = state.copyWith(userListState: LoaderState.loadError(l)),
-      (r) =>
-          state = state.copyWith(userListState: LoaderState.success(data: r as List<ChatTileArgs>)),
+      (r) => state = state.copyWith(userListState: LoaderState.success(data: r)),
     );
 
     final historyResult = await _repository.getMessageList();
     historyResult.fold(
       (l) => state = state.copyWith(historyListState: LoaderState.loadError(l)),
-      (r) => state = state.copyWith(
-        historyListState: LoaderState.success(data: r as List<ChatTileArgs>),
-      ),
+      (r) => state = state.copyWith(historyListState: LoaderState.success(data: r)),
     );
   }
 
@@ -58,5 +55,17 @@ class HomeNotifier extends _$HomeNotifier {
 
   void setAppBarVisibility(bool visible) {
     state = state.copyWith(isAppBarVisible: visible);
+  }
+
+  /// Handles scroll direction changes for app bar visibility.
+  /// This method encapsulates the business logic that was previously in the view.
+  void handleScroll(ScrollDirection direction) {
+    if (state.tabIndex != 0) return;
+
+    if (direction == ScrollDirection.reverse && state.isAppBarVisible) {
+      setAppBarVisibility(false);
+    } else if (direction == ScrollDirection.forward && !state.isAppBarVisible) {
+      setAppBarVisibility(true);
+    }
   }
 }
