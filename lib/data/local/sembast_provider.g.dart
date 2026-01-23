@@ -6,7 +6,7 @@ part of 'sembast_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sembastServiceHash() => r'1ba4861331631a55cf3a73dcd0fa61cd4c698a22';
+String _$sembastServiceHash() => r'7ff200f04e3f22807ae0b350f62c942030d72823';
 
 /// Riverpod provider for Sembast database service
 ///
