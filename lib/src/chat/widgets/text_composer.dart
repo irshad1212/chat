@@ -52,7 +52,7 @@ class _SimpleTextComposerState extends ConsumerState<SimpleTextComposer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: .only(
         left: 16,
         right: 16,
         top: 8,
@@ -68,10 +68,10 @@ class _SimpleTextComposerState extends ConsumerState<SimpleTextComposer> {
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const .symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: AppColors.chatBubbleOther,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: .circular(24),
               ),
               child: TextField(
                 controller: _controller,
@@ -113,7 +113,7 @@ class _SimpleTextComposerState extends ConsumerState<SimpleTextComposer> {
                         child: SvgPicture.asset(
                           Assets.svgLogo,
                           height: 22.r,
-                          colorFilter: ColorFilter.mode(
+                          colorFilter: .mode(
                             hasText ? AppColors.white : AppColors.textColorTertiary,
                             .srcIn,
                           ),

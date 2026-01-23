@@ -63,11 +63,11 @@ class TextMessageBubble extends StatelessWidget {
     // Grouping padding logic
     EdgeInsets padding;
     if (index == 0) {
-      padding = const EdgeInsets.symmetric(horizontal: 8);
+      padding = const .symmetric(horizontal: 8);
     } else {
       padding = (groupStatus?.isFirst ?? true)
-          ? const EdgeInsets.fromLTRB(8, 12, 8, 0)
-          : const EdgeInsets.fromLTRB(8, 2, 8, 0);
+          ? const .fromLTRB(8, 12, 8, 0)
+          : const .fromLTRB(8, 2, 8, 0);
     }
 
     return AnimatedPadding(

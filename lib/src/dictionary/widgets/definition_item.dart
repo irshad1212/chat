@@ -15,7 +15,7 @@ class DefinitionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: LayoutDimensions.spacingVerticalL),
+      padding: .only(bottom: LayoutDimensions.spacingVerticalL),
       child: Row(
         crossAxisAlignment: .start,
         children: [
@@ -38,10 +38,10 @@ class DefinitionItem extends StatelessWidget {
                 if (definition.example != null) ...[
                   SizedBox(height: LayoutDimensions.spacingVerticalS),
                   Container(
-                    padding: EdgeInsets.all(LayoutDimensions.spacingM),
+                    padding: .all(LayoutDimensions.spacingM),
                     decoration: BoxDecoration(
                       color: AppColors.textColorTertiary.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(LayoutDimensions.radiusS),
+                      borderRadius: .circular(LayoutDimensions.radiusS),
                       border: Border.all(color: AppColors.textColorTertiary.withValues(alpha: 0.1)),
                     ),
                     child: Row(

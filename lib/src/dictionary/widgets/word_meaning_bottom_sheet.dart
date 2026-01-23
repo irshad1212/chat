@@ -50,20 +50,13 @@ class _WordMeaningBottomSheetState extends ConsumerState<WordMeaningBottomSheet>
             Container(
               width: 40.w,
               height: 4.h,
-              margin: EdgeInsets.only(
+              margin: .only(
                 top: LayoutDimensions.spacingVerticalM,
                 bottom: LayoutDimensions.spacingVerticalS,
               ),
               decoration: BoxDecoration(
                 color: AppColors.textColorTertiary.withValues(alpha: 0.3),
-                borderRadius: .circular(
-                  LayoutDimensions.radiusXS,
-                ), // 2.r -> closer to XS (4.r) but 2 is tiny. RadiusXS is 4. I'll stick to 2.r hardcoded if XS is too big, but let's try XS or leave it. 2 is really small. I'll leave 2.r as it's a drag handle specific.
-                // Wait, User asked to centralize. I'll use `2.r` hardcoded or add `radiusTiny`.
-                // I'll leave 2.r for now as per "common dimensions". 2 is common for handles.
-                // Actually let's use LayoutDimensions.radiusXS / 2 ? No.
-                // Leaving 2.r hardcoded for now or creating `radiusTiny`. I'll create `radiusTiny`.
-                // For this step I'll leave 2.r and 40.w.
+                borderRadius: .circular(LayoutDimensions.radiusXS),
               ),
             ),
 
@@ -110,15 +103,11 @@ class _WordMeaningBottomSheetState extends ConsumerState<WordMeaningBottomSheet>
   Widget _buildNotFoundState() {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(LayoutDimensions.spacing2XL),
+        padding: .all(LayoutDimensions.spacing2XL),
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            Icon(
-              Icons.search_off,
-              size: 48.sp,
-              color: AppColors.textColorTertiary,
-            ), // 48.sp not in LayoutDimensions yet, leave hardcoded or add iconXXL? User didn't ask for full sweep, just "common". 48 is huge. Leave it.
+            Icon(Icons.search_off, size: 48.sp, color: AppColors.textColorTertiary),
             SizedBox(height: LayoutDimensions.spacingVerticalL),
             Text(Strings.noDefinitionFound, style: TextStyles.inter.dictionaryNotFoundTitle),
             SizedBox(height: LayoutDimensions.spacingVerticalS),
@@ -144,7 +133,7 @@ class _WordMeaningBottomSheetState extends ConsumerState<WordMeaningBottomSheet>
           // Scrollable meanings
           Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
+              padding: .symmetric(
                 horizontal: LayoutDimensions.spacing2XL,
                 vertical: LayoutDimensions.spacingXL,
               ),

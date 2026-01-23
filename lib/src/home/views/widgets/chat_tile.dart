@@ -44,7 +44,7 @@ class ChatTile extends StatelessWidget {
 
   Widget _buildUserTile(BuildContext context, {required UserTileModel user}) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: .symmetric(horizontal: 16.w),
       child: SmoothMaterial(
         color: Colors.transparent,
         clip: Clip.hardEdge,
@@ -56,15 +56,15 @@ class ChatTile extends StatelessWidget {
           child: Container(
             width: context.sw(),
             height: 78.h,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
-            padding: EdgeInsets.all(15.r),
+            decoration: BoxDecoration(borderRadius: .circular(12.r)),
+            padding: .all(15.r),
             child: Row(
               children: [
                 Avatar(model: user),
                 15.horizontalSpace,
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: .start,
+                  mainAxisAlignment: .center,
                   children: [
                     Text(user.fullName ?? '', style: TextStyles.inter.chatTileTitle),
                     Text(
@@ -83,10 +83,10 @@ class ChatTile extends StatelessWidget {
 
   Widget _buildHistoryTile(BuildContext context, {required HistoryTileModel history}) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: .symmetric(horizontal: 16.w),
       child: SmoothMaterial(
         color: Colors.transparent,
-        clip: Clip.hardEdge,
+        clip: .hardEdge,
         radiusAll: 12.r,
         child: InkWell(
           onTap: onTap,
@@ -95,30 +95,30 @@ class ChatTile extends StatelessWidget {
           child: Container(
             width: context.sw(),
             height: 78.h,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
-            padding: EdgeInsets.all(15.r),
+            decoration: BoxDecoration(borderRadius: .circular(12.r)),
+            padding: .all(15.r),
             child: Row(
               children: [
                 Avatar(model: history),
                 15.horizontalSpace,
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: .start,
+                    mainAxisAlignment: .center,
                     children: [
                       Text(history.fullName ?? '', style: TextStyles.inter.chatTileTitle),
                       Text(
                         history.lastMessage,
                         style: TextStyles.inter.chatTileSubtitle,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: .ellipsis,
                       ),
                     ],
                   ),
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: .end,
+                  mainAxisAlignment: .center,
                   children: [
                     Text(
                       formatTimeAgo(history.lastMessageTime, history: true),

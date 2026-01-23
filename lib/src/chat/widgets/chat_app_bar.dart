@@ -48,7 +48,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     isTyping ? Strings.typing : Strings.online,
                     style: TextStyles.inter.chatAppBarSubtitle.copyWith(
                       color: AppColors.textColorTertiary,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: .w600,
                     ),
                   ),
                 ],

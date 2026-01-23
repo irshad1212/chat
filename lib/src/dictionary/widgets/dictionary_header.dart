@@ -23,7 +23,7 @@ class DictionaryHeader extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: .symmetric(
         horizontal: LayoutDimensions.spacing2XL,
         vertical: LayoutDimensions.spacingS,
       ),
