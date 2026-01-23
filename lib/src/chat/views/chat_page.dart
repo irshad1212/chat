@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ulid/ulid.dart';
 
 import 'package:chat/src/chat/views/chat_view.dart';
 import 'package:chat/src/chat/widgets/chat_app_bar.dart';
-import 'package:chat/src/shared/controllers/chat_controller.dart';
-import 'package:chat/src/chat/models/chat_message.dart';
-import 'package:chat/core/enums/message_status.dart';
+import 'package:chat/src/chat/notifiers/chat_notifier.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   final String userId;
@@ -21,54 +18,30 @@ class ChatPage extends ConsumerStatefulWidget {
 }
 
 class _ChatPageState extends ConsumerState<ChatPage> {
-  late final ChatController _chatController;
   final String _currentUserId = 'me';
 
   @override
   void initState() {
     super.initState();
-    _chatController = ChatController();
-    _loadInitialMessages();
-  }
-
-  @override
-  void dispose() {
-    _chatController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _loadInitialMessages() async {
-    // Initial welcome message
-    await _chatController.insertMessage(
-      TextChatMessage(
-        id: Ulid().toString(),
-        authorId: widget.userId,
-        text: 'Hi! This is ${widget.userName}.',
-        createdAt: DateTime.now().subtract(const Duration(minutes: 1)),
-        status: MessageStatus.delivered,
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(chatNotifierProvider.notifier).loadInitialMessages(widget.userId, widget.userName);
+    });
   }
 
   Future<void> _handleMessageSend(String text) async {
-    final message = TextChatMessage(
-      id: Ulid().toString(),
-      authorId: _currentUserId,
-      text: text,
-      createdAt: DateTime.now(),
-      status: MessageStatus.sending,
-    );
-
-    await _chatController.insertMessage(message);
+    await ref.read(chatNotifierProvider.notifier).sendMessage(text, _currentUserId);
   }
 
   @override
   Widget build(BuildContext context) {
+    final chatState = ref.watch(chatNotifierProvider);
+    final messages = chatState.messages;
+
     return Scaffold(
       appBar: ChatAppBar(userId: widget.userId, userName: widget.userName),
       body: ChatView(
         currentUserId: _currentUserId,
-        controller: _chatController,
+        messages: messages,
         onMessageSend: _handleMessageSend,
       ),
     );

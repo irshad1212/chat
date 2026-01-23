@@ -6,9 +6,9 @@ part of 'remote_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chatRemoteClientHash() => r'3ac710e168725cc27325765b1e05ac8f790ce418';
+String _$chatRemoteClientHash() => r'5605c5eb1aa333da584a25101f62127efd556c9f';
 
-/// Quoteable (Chat) API client
+/// Quoteable (Chat) API client - uses DirectResponseParser for APIs that return data directly
 ///
 /// Copied from [chatRemoteClient].
 @ProviderFor(chatRemoteClient)

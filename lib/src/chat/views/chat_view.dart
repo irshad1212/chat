@@ -7,17 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:chat/src/chat/models/chat_message.dart';
 import 'package:chat/src/chat/widgets/text_composer.dart';
 import 'package:chat/src/chat/widgets/text_message.dart';
-import 'package:chat/src/shared/controllers/chat_controller.dart';
 
 class ChatView extends ConsumerStatefulWidget {
   final String currentUserId;
-  final ChatController controller;
+  final List<ChatMessage> messages;
   final Function(String) onMessageSend;
 
   const ChatView({
     super.key,
     required this.currentUserId,
-    required this.controller,
+    required this.messages,
     required this.onMessageSend,
   });
 
@@ -33,8 +32,13 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    _currentMessageCount = widget.controller.messages.length;
-    widget.controller.messagesStream.listen(_onMessagesChanged);
+    _currentMessageCount = widget.messages.length;
+  }
+
+  @override
+  void didUpdateWidget(ChatView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _onMessagesChanged(widget.messages);
   }
 
   void _onMessagesChanged(List<ChatMessage> messages) {
@@ -75,13 +79,13 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
           Expanded(
             child: AnimatedList(
               controller: _scrollController,
-              padding: EdgeInsets.only(bottom: 12.h),
+              padding: EdgeInsets.symmetric(vertical: 12.h),
               key: _listKey,
-              initialItemCount: widget.controller.messages.length,
+              initialItemCount: widget.messages.length,
               reverse: true,
               itemBuilder: (context, index, animation) {
-                final reversedIndex = widget.controller.messages.length - 1 - index;
-                final message = widget.controller.messages[reversedIndex];
+                final reversedIndex = widget.messages.length - 1 - index;
+                final message = widget.messages[reversedIndex];
                 final isSentByMe = message.authorId == widget.currentUserId;
 
                 // Calculate message grouping
@@ -91,13 +95,13 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
                   TextChatMessage() when isSentByMe => TextMessageBubble.self(
                     message: message,
                     index: reversedIndex,
-                    animation: animation, // Use the provided animation
+                    animation: animation,
                     groupStatus: groupStatus,
                   ),
                   TextChatMessage() => TextMessageBubble.other(
                     message: message,
                     index: reversedIndex,
-                    animation: animation, // Use the provided animation
+                    animation: animation,
                     groupStatus: groupStatus,
                   ),
                   _ => const SizedBox.shrink(),
@@ -112,7 +116,7 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
   }
 
   MessageGroupStatus? _calculateGroupStatus(int index) {
-    final messages = widget.controller.messages;
+    final messages = widget.messages;
     if (index < 0 || index >= messages.length) return null;
 
     final currentMessage = messages[index];
@@ -127,13 +131,13 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
         nextMessage is TextChatMessage && nextMessage.authorId == currentMessage.authorId;
 
     if (isSameAuthorAsPrev && isSameAuthorAsNext) {
-      return .middle;
+      return MessageGroupStatus.middle;
     } else if (isSameAuthorAsPrev) {
-      return .last;
+      return MessageGroupStatus.last;
     } else if (isSameAuthorAsNext) {
-      return .first;
+      return MessageGroupStatus.first;
     } else {
-      return .single;
+      return MessageGroupStatus.single;
     }
   }
 }
