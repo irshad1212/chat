@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_svg/svg.dart';
+
 import 'package:chat/core/constants/strings.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/generated/assets.dart';
 import 'package:chat/src/home/views/home_view.dart';
-import 'package:chat/src/home/views/widgets/placeholder_view.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/svg.dart';
+import 'package:chat/src/main/views/widgets/placeholder_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
