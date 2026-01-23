@@ -28,60 +28,42 @@ class ChatView extends ConsumerStatefulWidget {
 class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   final ScrollController _scrollController = ScrollController();
-  final List<AnimationController> _animationControllers = [];
+  int _currentMessageCount = 0;
 
   @override
   void initState() {
     super.initState();
+    _currentMessageCount = widget.controller.messages.length;
     widget.controller.messagesStream.listen(_onMessagesChanged);
-
-    for (int i = 0; i < widget.controller.messages.length; i++) {
-      _animationControllers.add(_createAnimationController());
-    }
-  }
-
-  @override
-  void dispose() {
-    for (final controller in _animationControllers) {
-      controller.dispose();
-    }
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  AnimationController _createAnimationController() {
-    final controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    controller.forward();
-    return controller;
   }
 
   void _onMessagesChanged(List<ChatMessage> messages) {
-    final oldLength = _animationControllers.length;
     final newLength = messages.length;
 
-    if (newLength > oldLength) {
+    if (newLength > _currentMessageCount) {
       // Messages added
-      for (int i = oldLength; i < newLength; i++) {
-        _animationControllers.add(_createAnimationController());
+      for (int i = _currentMessageCount; i < newLength; i++) {
         _listKey.currentState?.insertItem(0);
       }
-      // Jump to bottom without animation
+      // Jump to bottom
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_scrollController.hasClients) {
           _scrollController.jumpTo(0);
         }
       });
-    } else if (newLength < oldLength) {
+    } else if (newLength < _currentMessageCount) {
       // Messages removed
-      for (int i = oldLength - 1; i >= newLength; i--) {
-        final controller = _animationControllers.removeAt(i);
+      for (int i = _currentMessageCount - 1; i >= newLength; i--) {
         _listKey.currentState?.removeItem(i, (context, animation) => const SizedBox.shrink());
-        controller.dispose();
       }
     }
+    _currentMessageCount = newLength;
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -109,13 +91,13 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
                   TextChatMessage() when isSentByMe => TextMessageBubble.self(
                     message: message,
                     index: reversedIndex,
-                    animation: _animationControllers[reversedIndex],
+                    animation: animation, // Use the provided animation
                     groupStatus: groupStatus,
                   ),
                   TextChatMessage() => TextMessageBubble.other(
                     message: message,
                     index: reversedIndex,
-                    animation: _animationControllers[reversedIndex],
+                    animation: animation, // Use the provided animation
                     groupStatus: groupStatus,
                   ),
                   _ => const SizedBox.shrink(),
