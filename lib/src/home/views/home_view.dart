@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:chat/src/home/notifiers/home_notifier.dart';
 import 'package:chat/src/home/views/widgets/history_list.dart';
 import 'package:chat/src/home/views/widgets/home_app_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -19,6 +20,8 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMixin {
   late TabController _tabController;
   late AnimationController _appBarAnimController;
+  late AnimationController _fabAnimController;
+  late Animation<Offset> _fabSlideAnimation;
   late ScrollController _scrollController;
 
   @override
@@ -103,18 +106,44 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
             ),
           ],
         ),
+        floatingActionButton: SlideTransition(
+          position: _fabSlideAnimation,
+          child: InkWell(
+            onTap: () {},
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Container(
+              width: 56.r,
+              height: 56.r,
+              decoration: const BoxDecoration(color: AppColors.primaryBlue, shape: BoxShape.circle),
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   void _init() {
-    _tabController = TabController(length: 2, vsync: this);
+    final initialIndex = ref.read(homeNotifierProvider).tabIndex;
+    _tabController = TabController(length: 2, vsync: this, initialIndex: initialIndex);
     _tabController.addListener(_onTabChanged);
+    final isAppBarVisible = ref.read(homeNotifierProvider).isAppBarVisible;
     _appBarAnimController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
-      value: 1.0,
+      value: isAppBarVisible ? 1.0 : 0.0,
     );
+    _fabAnimController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      value: initialIndex != 0 ? 1.0 : 0.0,
+    );
+    _fabSlideAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(0, 2),
+    ).animate(CurvedAnimation(parent: _fabAnimController, curve: Curves.easeInOut));
+
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
@@ -140,6 +169,12 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
     if (_tabController.indexIsChanging ||
         _tabController.index != ref.read(homeNotifierProvider).tabIndex) {
       ref.read(homeNotifierProvider.notifier).setTabIndex(_tabController.index);
+
+      if (_tabController.index == 0) {
+        _fabAnimController.reverse();
+      } else {
+        _fabAnimController.forward();
+      }
     }
   }
 
@@ -147,6 +182,7 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
     _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _appBarAnimController.dispose();
+    _fabAnimController.dispose();
     _scrollController.dispose();
   }
 }

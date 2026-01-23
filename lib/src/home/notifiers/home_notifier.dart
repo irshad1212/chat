@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class HomeNotifier extends _$HomeNotifier {
   late final HomeRepository _repository;
 
@@ -22,6 +22,10 @@ class HomeNotifier extends _$HomeNotifier {
   }
 
   Future<void> _loadData({bool refresh = false}) async {
+    if (!refresh && (state.userListState is Success || state.historyListState is Success)) {
+      return;
+    }
+
     if (!refresh) {
       state = state.copyWith(
         userListState: const LoaderState.loading(),
