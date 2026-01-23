@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String svgLogo = 'assets/svg/logo.svg';
   static const String svgToastError = 'assets/svg/toast_error.svg';
   static const String svgToastSuccess = 'assets/svg/toast_success.svg';
 }
