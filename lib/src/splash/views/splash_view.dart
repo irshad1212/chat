@@ -1,4 +1,5 @@
 import 'package:chat/generated/assets.dart';
+import 'package:chat/src/splash/services/splash_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,6 +60,9 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SplashHandler().checkNetworkState(context, mounted);
+    });
 
     /// Do navigation
   }
