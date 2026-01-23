@@ -6,6 +6,7 @@ class AppTheme {
   static ThemeData themeData = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor: AppColors.materialPrimary,
+    primarySwatch: AppColors.materialPrimary,
     fontFamily: AppConfigs.fontFamily,
     brightness: Brightness.light,
   );

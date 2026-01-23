@@ -1,3 +1,6 @@
+import 'package:chat/core/theme/colors.dart';
+import 'package:chat/src/home/views/widgets/user_list.dart';
+import 'package:chat/src/shared/widgets/view_state_builder.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:chat/src/home/notifiers/home_notifier.dart';
 import 'package:chat/src/home/views/widgets/history_list.dart';
 import 'package:chat/src/home/views/widgets/home_app_bar.dart';
-import 'package:chat/src/home/views/widgets/user_list.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -22,6 +24,9 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(homeNotifierProvider.notifier).getData();
+    });
     _init();
   }
 
@@ -42,6 +47,8 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
     });
 
     final currentIndex = ref.watch(homeNotifierProvider.select((s) => s.tabIndex));
+    final userListState = ref.watch(homeNotifierProvider.select((s) => s.userListState));
+    final historyListState = ref.watch(homeNotifierProvider.select((s) => s.historyListState));
 
     return SafeArea(
       child: Scaffold(
@@ -56,13 +63,40 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
                     duration: const Duration(milliseconds: 200),
                     child: IgnorePointer(
                       ignoring: currentIndex != 0,
-                      child: UserList(scrollController: _scrollController),
+                      child: ViewStateBuilder(
+                        loaderState: userListState,
+                        onLoading: const Center(child: CircularProgressIndicator()),
+                        onError: (failure) => Center(child: Text('Error: ${failure.message}')),
+                        onSuccess: (data) => RefreshIndicator(
+                          color: AppColors.primaryBlue,
+                          elevation: 0.1,
+                          onRefresh: () async {
+                            await ref.read(homeNotifierProvider.notifier).getData(refresh: true);
+                          },
+                          child: UserList(scrollController: _scrollController, list: data),
+                        ),
+                      ),
                     ),
                   ),
                   AnimatedOpacity(
                     opacity: currentIndex == 1 ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 200),
-                    child: IgnorePointer(ignoring: currentIndex != 1, child: const HistoryList()),
+                    child: IgnorePointer(
+                      ignoring: currentIndex != 1,
+                      child: ViewStateBuilder(
+                        loaderState: historyListState,
+                        onLoading: const Center(child: CircularProgressIndicator()),
+                        onError: (failure) => Center(child: Text('Error: ${failure.message}')),
+                        onSuccess: (data) => RefreshIndicator(
+                          color: AppColors.primaryBlue,
+                          elevation: 0.1,
+                          onRefresh: () async {
+                            await ref.read(homeNotifierProvider.notifier).getData(refresh: true);
+                          },
+                          child: HistoryList(list: data),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

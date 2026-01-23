@@ -19,6 +19,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   int get tabIndex => throw _privateConstructorUsedError;
   bool get isAppBarVisible => throw _privateConstructorUsedError;
+  LoaderState<List<ChatTileArgs>> get userListState =>
+      throw _privateConstructorUsedError;
+  LoaderState<List<ChatTileArgs>> get historyListState =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +36,15 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({int tabIndex, bool isAppBarVisible});
+  $Res call({
+    int tabIndex,
+    bool isAppBarVisible,
+    LoaderState<List<ChatTileArgs>> userListState,
+    LoaderState<List<ChatTileArgs>> historyListState,
+  });
+
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState;
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState;
 }
 
 /// @nodoc
@@ -49,7 +61,12 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tabIndex = null, Object? isAppBarVisible = null}) {
+  $Res call({
+    Object? tabIndex = null,
+    Object? isAppBarVisible = null,
+    Object? userListState = null,
+    Object? historyListState = null,
+  }) {
     return _then(
       _value.copyWith(
             tabIndex: null == tabIndex
@@ -60,8 +77,42 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
                 ? _value.isAppBarVisible
                 : isAppBarVisible // ignore: cast_nullable_to_non_nullable
                       as bool,
+            userListState: null == userListState
+                ? _value.userListState
+                : userListState // ignore: cast_nullable_to_non_nullable
+                      as LoaderState<List<ChatTileArgs>>,
+            historyListState: null == historyListState
+                ? _value.historyListState
+                : historyListState // ignore: cast_nullable_to_non_nullable
+                      as LoaderState<List<ChatTileArgs>>,
           )
           as $Val,
+    );
+  }
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState {
+    return $LoaderStateCopyWith<List<ChatTileArgs>, $Res>(
+      _value.userListState,
+      (value) {
+        return _then(_value.copyWith(userListState: value) as $Val);
+      },
+    );
+  }
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState {
+    return $LoaderStateCopyWith<List<ChatTileArgs>, $Res>(
+      _value.historyListState,
+      (value) {
+        return _then(_value.copyWith(historyListState: value) as $Val);
+      },
     );
   }
 }
@@ -75,7 +126,17 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   ) = __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int tabIndex, bool isAppBarVisible});
+  $Res call({
+    int tabIndex,
+    bool isAppBarVisible,
+    LoaderState<List<ChatTileArgs>> userListState,
+    LoaderState<List<ChatTileArgs>> historyListState,
+  });
+
+  @override
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get userListState;
+  @override
+  $LoaderStateCopyWith<List<ChatTileArgs>, $Res> get historyListState;
 }
 
 /// @nodoc
@@ -91,7 +152,12 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tabIndex = null, Object? isAppBarVisible = null}) {
+  $Res call({
+    Object? tabIndex = null,
+    Object? isAppBarVisible = null,
+    Object? userListState = null,
+    Object? historyListState = null,
+  }) {
     return _then(
       _$HomeStateImpl(
         tabIndex: null == tabIndex
@@ -102,6 +168,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
             ? _value.isAppBarVisible
             : isAppBarVisible // ignore: cast_nullable_to_non_nullable
                   as bool,
+        userListState: null == userListState
+            ? _value.userListState
+            : userListState // ignore: cast_nullable_to_non_nullable
+                  as LoaderState<List<ChatTileArgs>>,
+        historyListState: null == historyListState
+            ? _value.historyListState
+            : historyListState // ignore: cast_nullable_to_non_nullable
+                  as LoaderState<List<ChatTileArgs>>,
       ),
     );
   }
@@ -110,7 +184,12 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.tabIndex = 0, this.isAppBarVisible = true});
+  const _$HomeStateImpl({
+    this.tabIndex = 0,
+    this.isAppBarVisible = true,
+    this.userListState = const LoaderState.initial(),
+    this.historyListState = const LoaderState.initial(),
+  });
 
   @override
   @JsonKey()
@@ -118,10 +197,16 @@ class _$HomeStateImpl implements _HomeState {
   @override
   @JsonKey()
   final bool isAppBarVisible;
+  @override
+  @JsonKey()
+  final LoaderState<List<ChatTileArgs>> userListState;
+  @override
+  @JsonKey()
+  final LoaderState<List<ChatTileArgs>> historyListState;
 
   @override
   String toString() {
-    return 'HomeState(tabIndex: $tabIndex, isAppBarVisible: $isAppBarVisible)';
+    return 'HomeState(tabIndex: $tabIndex, isAppBarVisible: $isAppBarVisible, userListState: $userListState, historyListState: $historyListState)';
   }
 
   @override
@@ -132,11 +217,21 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.tabIndex, tabIndex) ||
                 other.tabIndex == tabIndex) &&
             (identical(other.isAppBarVisible, isAppBarVisible) ||
-                other.isAppBarVisible == isAppBarVisible));
+                other.isAppBarVisible == isAppBarVisible) &&
+            (identical(other.userListState, userListState) ||
+                other.userListState == userListState) &&
+            (identical(other.historyListState, historyListState) ||
+                other.historyListState == historyListState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tabIndex, isAppBarVisible);
+  int get hashCode => Object.hash(
+    runtimeType,
+    tabIndex,
+    isAppBarVisible,
+    userListState,
+    historyListState,
+  );
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -148,13 +243,21 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final int tabIndex, final bool isAppBarVisible}) =
-      _$HomeStateImpl;
+  const factory _HomeState({
+    final int tabIndex,
+    final bool isAppBarVisible,
+    final LoaderState<List<ChatTileArgs>> userListState,
+    final LoaderState<List<ChatTileArgs>> historyListState,
+  }) = _$HomeStateImpl;
 
   @override
   int get tabIndex;
   @override
   bool get isAppBarVisible;
+  @override
+  LoaderState<List<ChatTileArgs>> get userListState;
+  @override
+  LoaderState<List<ChatTileArgs>> get historyListState;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.

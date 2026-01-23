@@ -5,9 +5,10 @@ import 'package:chat/src/home/views/widgets/chat_tile.dart';
 import 'package:chat/src/shared/widgets/slide_fade_transition.dart';
 
 class UserList extends StatelessWidget {
-  const UserList({super.key, required this.scrollController});
+  const UserList({super.key, required this.scrollController, required this.list});
 
   final ScrollController scrollController;
+  final List<ChatTileArgs> list;
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +18,9 @@ class UserList extends StatelessWidget {
       child: ListView.builder(
         controller: scrollController,
         key: const PageStorageKey<String>('user_list'),
-        itemCount: 100,
+        itemCount: list.length,
         itemBuilder: (ctx, index) {
-          return ChatTile.user(
-            args: ChatTileArgs(
-              type: .user,
-              userId: '$index',
-              fullName: 'User $index',
-              isOnline: true,
-            ),
-            onTap: () {},
-          );
+          return ChatTile.user(args: list[index], onTap: () {});
         },
       ),
     );

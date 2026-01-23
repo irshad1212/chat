@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:chat/core/constants/strings.dart';
-import 'package:chat/core/enums/chat_tile_type.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/src/home/models/chat_tile_args.dart';
@@ -29,8 +28,8 @@ class ChatTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (args.type) {
-      ChatTileType.user => _buildUserTile(context, args: args),
-      ChatTileType.history => _buildHistoryTile(context),
+      .user => _buildUserTile(context, args: args),
+      .history => _buildHistoryTile(context),
     };
   }
 
@@ -39,7 +38,7 @@ class ChatTile extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: SmoothMaterial(
         color: Colors.transparent,
-        clip: Clip.hardEdge,
+        clip: .hardEdge,
         radiusAll: 12.r,
         child: InkWell(
           onTap: () => onTap(),
@@ -99,7 +98,12 @@ class ChatTile extends StatelessWidget {
                     mainAxisAlignment: .center,
                     children: [
                       Text(args.fullName ?? '', style: TextStyles.inter.chatTileTitle),
-                      Text(args.lastMessage ?? '', style: TextStyles.inter.chatTileSubtitle),
+                      Text(
+                        args.lastMessage ?? '',
+                        style: TextStyles.inter.chatTileSubtitle,
+                        maxLines: 1,
+                        overflow: .ellipsis,
+                      ),
                     ],
                   ),
                 ),

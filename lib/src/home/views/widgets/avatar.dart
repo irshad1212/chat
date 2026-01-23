@@ -1,3 +1,4 @@
+import 'package:chat/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,15 @@ class Avatar extends StatelessWidget {
                 colors: args.type == .user
                     ? [AppColors.blueGradientStart, AppColors.blueGradientEnd]
                     : [AppColors.greenGradientStart, AppColors.greenGradientEnd],
+              ),
+            ),
+            child: Center(
+              child: Text(
+                args.fullName?.substring(0, 1) ?? '',
+                style: TextStyles.inter.chatTileTitle.copyWith(
+                  color: AppColors.white,
+                  fontSize: 16.sp,
+                ),
               ),
             ),
           ),
