@@ -79,7 +79,7 @@ class _ChatViewState extends ConsumerState<ChatView> with TickerProviderStateMix
           Expanded(
             child: AnimatedList(
               controller: _scrollController,
-              padding: EdgeInsets.symmetric(vertical: 12.h),
+              padding: .symmetric(vertical: 12.h),
               key: _listKey,
               initialItemCount: widget.messages.length,
               reverse: true,

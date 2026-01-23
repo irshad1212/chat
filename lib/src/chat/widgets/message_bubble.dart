@@ -23,8 +23,8 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isOther) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: .start,
+        mainAxisAlignment: .center,
         children: [
           Container(
             constraints: BoxConstraints(
@@ -36,17 +36,17 @@ class MessageBubble extends StatelessWidget {
               color: AppColors.chatBubbleOther,
               borderRadius: _buildBorderRadius(isOther: true),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+            padding: .symmetric(horizontal: 14.w, vertical: 10.h),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: .start,
+              mainAxisSize: .min,
+              mainAxisAlignment: .center,
               children: [_buildTappableText(context, message.text, true)],
             ),
           ),
           if (message.createdAt != null)
             Padding(
-              padding: EdgeInsets.only(top: 6.h),
+              padding: .only(top: 6.h),
               child: Text(
                 _timeFormatter.format(message.createdAt!),
                 style: TextStyles.inter.messageBubbleTime,
@@ -59,7 +59,7 @@ class MessageBubble extends StatelessWidget {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: .end,
       children: [
         Container(
           constraints: BoxConstraints(
@@ -67,22 +67,22 @@ class MessageBubble extends StatelessWidget {
             minHeight: 46.h,
             maxWidth: context.sw() * 0.65,
           ),
-          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+          padding: .symmetric(horizontal: 14.w, vertical: 10.h),
           decoration: BoxDecoration(
             color: AppColors.primaryBlue,
             borderRadius: _buildBorderRadius(isOther: false),
             border: Border.all(color: AppColors.messageBorder),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: .start,
+            mainAxisSize: .min,
+            mainAxisAlignment: .center,
             children: [_buildTappableText(context, message.text, false)],
           ),
         ),
         if (message.createdAt != null)
           Padding(
-            padding: EdgeInsets.only(top: 4.h),
+            padding: .only(top: 4.h),
             child: Text(
               _timeFormatter.format(message.createdAt!),
               style: TextStyles.inter.messageBubbleTime,

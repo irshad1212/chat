@@ -1,3 +1,4 @@
+import 'package:chat/core/constants/layout_dimensions.dart';
 import 'package:chat/core/constants/strings.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
@@ -16,21 +17,21 @@ class MeaningItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: .only(bottom: isLast ? 0 : 28.h),
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 28.h),
       child: Column(
         crossAxisAlignment: .start,
         children: [
           // Part of speech badge
           Container(
-            padding: .symmetric(horizontal: 12.w, vertical: 6.h),
+            padding: EdgeInsets.symmetric(horizontal: LayoutDimensions.spacingM, vertical: 6.h),
             decoration: BoxDecoration(
               color: AppColors.primaryBlue.withValues(alpha: 0.1),
-              borderRadius: .circular(20.r),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             child: Text(meaning.partOfSpeech, style: TextStyles.inter.dictionaryPartOfSpeech),
           ),
 
-          SizedBox(height: 16.h),
+          SizedBox(height: LayoutDimensions.spacingVerticalL),
 
           // Definitions
           ...meaning.definitions.asMap().entries.map((entry) {
@@ -39,7 +40,7 @@ class MeaningItem extends StatelessWidget {
 
           // Synonyms
           if (meaning.synonyms.isNotEmpty) ...[
-            SizedBox(height: 12.h),
+            SizedBox(height: LayoutDimensions.spacingVerticalM),
             WordChips(
               label: Strings.synonyms,
               words: meaning.synonyms,
@@ -49,7 +50,7 @@ class MeaningItem extends StatelessWidget {
 
           // Antonyms
           if (meaning.antonyms.isNotEmpty) ...[
-            SizedBox(height: 12.h),
+            SizedBox(height: LayoutDimensions.spacingVerticalM),
             WordChips(
               label: Strings.antonyms,
               words: meaning.antonyms,

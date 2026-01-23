@@ -1,4 +1,4 @@
-import 'package:chat/core/theme/colors.dart';
+import 'package:chat/core/constants/layout_dimensions.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,20 +17,14 @@ class WordChips extends StatelessWidget {
     return Column(
       crossAxisAlignment: .start,
       children: [
-        Text(
-          label,
-          style: TextStyles.inter.semibold.copyWith(
-            fontSize: 13.sp,
-            color: AppColors.textColorSecondary,
-          ),
-        ),
-        SizedBox(height: 8.h),
+        Text(label, style: TextStyles.inter.dictionaryChipLabel),
+        SizedBox(height: LayoutDimensions.spacingVerticalS),
         Wrap(
-          spacing: 8.w,
-          runSpacing: 8.h,
+          spacing: LayoutDimensions.spacingS,
+          runSpacing: LayoutDimensions.spacingVerticalS,
           children: words.take(6).map((word) {
             return Container(
-              padding: .symmetric(horizontal: 10.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.08),
                 borderRadius: .circular(6.r),

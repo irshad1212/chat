@@ -1,3 +1,4 @@
+import 'package:chat/core/constants/layout_dimensions.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/src/dictionary/models/word_definition_model.dart';
@@ -22,7 +23,10 @@ class DictionaryHeader extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: LayoutDimensions.spacing2XL,
+        vertical: LayoutDimensions.spacingS,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
@@ -35,11 +39,15 @@ class DictionaryHeader extends StatelessWidget {
         children: [
           Text(definition.word, style: TextStyles.inter.dictionaryWord),
           if (phoneticText != null && phoneticText.isNotEmpty) ...[
-            SizedBox(height: 6.h),
+            SizedBox(height: LayoutDimensions.spacingVerticalS),
             Row(
               children: [
-                Icon(Icons.volume_up, size: 18.sp, color: AppColors.primaryBlue),
-                SizedBox(width: 6.w),
+                Icon(
+                  Icons.volume_up,
+                  size: LayoutDimensions.iconSmall,
+                  color: AppColors.primaryBlue,
+                ),
+                SizedBox(width: LayoutDimensions.spacingS),
                 Text(phoneticText, style: TextStyles.inter.dictionaryPhonetic),
               ],
             ),
