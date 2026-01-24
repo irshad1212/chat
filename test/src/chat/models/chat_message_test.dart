@@ -6,7 +6,7 @@ void main() {
   group('ChatMessage', () {
     group('TextChatMessage', () {
       test('should create TextChatMessage with required fields', () {
-        final message = TextChatMessage(id: 'msg_001', authorId: 'user_123', text: 'Hello, World!');
+        const message = TextChatMessage(id: 'msg_001', authorId: 'user_123', text: 'Hello, World!');
 
         expect(message.id, 'msg_001');
         expect(message.authorId, 'user_123');
