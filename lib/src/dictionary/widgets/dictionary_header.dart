@@ -2,6 +2,7 @@ import 'package:chat/core/constants/layout_dimensions.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
 import 'package:chat/src/dictionary/models/word_definition_model.dart';
+import 'package:chat/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,6 +24,7 @@ class DictionaryHeader extends StatelessWidget {
     }
 
     return Container(
+      width: context.sw(),
       padding: .symmetric(
         horizontal: LayoutDimensions.spacing2XL,
         vertical: LayoutDimensions.spacingS,
