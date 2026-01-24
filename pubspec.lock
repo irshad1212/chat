@@ -347,6 +347,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.2"
   io:
     dependency: transitive
     description:
@@ -664,6 +672,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  ulid:
+    dependency: "direct main"
+    description:
+      name: ulid
+      sha256: "6d1f44802679bc3e3cc824045546af2bf26b1d8d0551f45457fedb6c827409ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   uuid:
     dependency: transitive
     description:

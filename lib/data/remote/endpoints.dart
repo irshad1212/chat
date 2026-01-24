@@ -7,5 +7,5 @@ class Endpoints {
   /// Endpoints
   static const String getRandomMessage = '/comments';
 
-  static const String getWordMeaning = '/v2/entries/en/';
+  static const String getWordDefinition = '/v2/entries/en';
 }

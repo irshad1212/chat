@@ -8,6 +8,6 @@ class AppTheme {
     primaryColor: AppColors.materialPrimary,
     primarySwatch: AppColors.materialPrimary,
     fontFamily: AppConfigs.fontFamily,
-    brightness: Brightness.light,
+    brightness: .light,
   );
 }

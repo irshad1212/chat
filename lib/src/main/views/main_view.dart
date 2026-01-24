@@ -76,7 +76,7 @@ class _MainViewState extends State<MainView> {
                 currentIndex: value,
                 showSelectedLabels: true,
                 backgroundColor: AppColors.white,
-                type: BottomNavigationBarType.fixed,
+                type: .fixed,
                 showUnselectedLabels: true,
                 onTap: (val) => updateSelectedIndex(val),
                 selectedLabelStyle: TextStyles.inter.bottomNavSelected,
@@ -87,7 +87,7 @@ class _MainViewState extends State<MainView> {
                   navTexts.length,
                   (index) => BottomNavigationBarItem(
                     icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 6, top: 8),
+                      padding: const .only(bottom: 6, top: 8),
                       child: Container(
                         height: 24,
                         alignment: Alignment.center,

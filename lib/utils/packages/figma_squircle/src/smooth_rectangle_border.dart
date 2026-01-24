@@ -23,11 +23,11 @@ class SmoothRectangleBorder extends OutlinedBorder {
   EdgeInsetsGeometry get dimensions {
     switch (borderAlign) {
       case BorderAlign.inside:
-        return EdgeInsets.all(side.width);
+        return .all(side.width);
       case BorderAlign.center:
-        return EdgeInsets.all(side.width / 2);
+        return .all(side.width / 2);
       case BorderAlign.outside:
-        return EdgeInsets.zero;
+        return .zero;
     }
   }
 
@@ -40,8 +40,8 @@ class SmoothRectangleBorder extends OutlinedBorder {
   ShapeBorder? lerpFrom(ShapeBorder? a, double t) {
     if (a is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
-        side: BorderSide.lerp(a.side, side, t),
-        borderRadius: SmoothBorderRadius.lerp(a.borderRadius, borderRadius, t)!,
+        side: .lerp(a.side, side, t),
+        borderRadius: .lerp(a.borderRadius, borderRadius, t)!,
       );
     }
     return super.lerpFrom(a, t);
@@ -51,8 +51,8 @@ class SmoothRectangleBorder extends OutlinedBorder {
   ShapeBorder? lerpTo(ShapeBorder? b, double t) {
     if (b is SmoothRectangleBorder) {
       return SmoothRectangleBorder(
-        side: BorderSide.lerp(side, b.side, t),
-        borderRadius: SmoothBorderRadius.lerp(borderRadius, b.borderRadius, t)!,
+        side: .lerp(side, b.side, t),
+        borderRadius: .lerp(borderRadius, b.borderRadius, t)!,
       );
     }
     return super.lerpTo(b, t);
@@ -62,24 +62,21 @@ class SmoothRectangleBorder extends OutlinedBorder {
   Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
     final innerRect = () {
       switch (borderAlign) {
-        case BorderAlign.inside:
+        case .inside:
           return rect.deflate(side.width);
-        case BorderAlign.center:
+        case .center:
           return rect.deflate(side.width / 2);
-        case BorderAlign.outside:
+        case .outside:
           return rect;
       }
     }();
     final radius = () {
       switch (borderAlign) {
-        case BorderAlign.inside:
+        case .inside:
+          return borderRadius - .all(SmoothRadius(cornerRadius: side.width, cornerSmoothing: 1.0));
+        case .center:
           return borderRadius -
-              SmoothBorderRadius.all(SmoothRadius(cornerRadius: side.width, cornerSmoothing: 1.0));
-        case BorderAlign.center:
-          return borderRadius -
-              SmoothBorderRadius.all(
-                SmoothRadius(cornerRadius: side.width / 2, cornerSmoothing: 1.0),
-              );
+              .all(SmoothRadius(cornerRadius: side.width / 2, cornerSmoothing: 1.0));
         case BorderAlign.outside:
           return borderRadius;
       }
@@ -139,24 +136,22 @@ class SmoothRectangleBorder extends OutlinedBorder {
         // according to the [borderAlign].
         final adjustedRect = () {
           switch (borderAlign) {
-            case BorderAlign.inside:
+            case .inside:
               return rect.deflate(side.width / 2);
-            case BorderAlign.center:
+            case .center:
               return rect;
-            case BorderAlign.outside:
+            case .outside:
               return rect.inflate(side.width / 2);
           }
         }();
         final adjustedBorderRadius = () {
           switch (borderAlign) {
-            case BorderAlign.inside:
+            case .inside:
               return borderRadius -
-                  SmoothBorderRadius.all(
-                    SmoothRadius(cornerRadius: side.width / 2, cornerSmoothing: 1.0),
-                  );
-            case BorderAlign.center:
+                  .all(SmoothRadius(cornerRadius: side.width / 2, cornerSmoothing: 1.0));
+            case .center:
               return borderRadius;
-            case BorderAlign.outside:
+            case .outside:
               return borderRadius +
                   SmoothBorderRadius.all(
                     SmoothRadius(cornerRadius: side.width / 2, cornerSmoothing: 1.0),

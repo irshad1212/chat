@@ -6,14 +6,20 @@ import 'package:chat/data/remote/endpoints.dart';
 
 part 'remote_service.g.dart';
 
-/// Quoteable (Chat) API client
 @riverpod
 RemoteClient chatRemoteClient(Ref ref) {
-  return RemoteClientFactory.create(baseUrl: Endpoints.chatBaseUrl, enableLogging: true);
+  return RemoteClientFactory.create(
+    baseUrl: Endpoints.chatBaseUrl,
+    enableLogging: true,
+    responseParser: const DirectResponseParser(),
+  );
 }
 
-/// Dictionary API client
 @riverpod
 RemoteClient dictionaryRemoteClient(Ref ref) {
-  return RemoteClientFactory.create(baseUrl: Endpoints.dictionaryBaseUrl, enableLogging: true);
+  return RemoteClientFactory.create(
+    baseUrl: Endpoints.dictionaryBaseUrl,
+    enableLogging: true,
+    responseParser: const DirectResponseParser(),
+  );
 }

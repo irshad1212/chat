@@ -6,11 +6,9 @@ part of 'remote_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chatRemoteClientHash() => r'3ac710e168725cc27325765b1e05ac8f790ce418';
+String _$chatRemoteClientHash() => r'5605c5eb1aa333da584a25101f62127efd556c9f';
 
-/// Quoteable (Chat) API client
-///
-/// Copied from [chatRemoteClient].
+/// See also [chatRemoteClient].
 @ProviderFor(chatRemoteClient)
 final chatRemoteClientProvider = AutoDisposeProvider<RemoteClient>.internal(
   chatRemoteClient,
@@ -26,11 +24,9 @@ final chatRemoteClientProvider = AutoDisposeProvider<RemoteClient>.internal(
 // ignore: unused_element
 typedef ChatRemoteClientRef = AutoDisposeProviderRef<RemoteClient>;
 String _$dictionaryRemoteClientHash() =>
-    r'5d0be21f24359d25d8afb90200d3f1c847763a9c';
+    r'ed43ef630adec4a9801fbb0d3902f6225f0d86f5';
 
-/// Dictionary API client
-///
-/// Copied from [dictionaryRemoteClient].
+/// See also [dictionaryRemoteClient].
 @ProviderFor(dictionaryRemoteClient)
 final dictionaryRemoteClientProvider =
     AutoDisposeProvider<RemoteClient>.internal(

@@ -372,8 +372,8 @@ class Toast {
         constraints: BoxConstraints(minHeight: 40.h),
         child: SmoothContainer(
           width: context!.sw(),
-          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
-          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(10.r)),
+          padding: .symmetric(vertical: 8.h, horizontal: 12.w),
+          decoration: BoxDecoration(color: Colors.black, borderRadius: .circular(10.r)),
           child: Row(
             children: [
               SvgPicture.asset(icon),
@@ -381,9 +381,9 @@ class Toast {
               Expanded(
                 child: Text(
                   message,
-                  style: const TextStyle(color: Color(0xffF7F7F7), fontWeight: FontWeight.w600),
+                  style: const TextStyle(color: Color(0xffF7F7F7), fontWeight: .w600),
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                 ),
               ),
               if (closeButton) ...[

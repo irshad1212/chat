@@ -6,6 +6,7 @@ class Strings {
   static const String settings = 'Settings';
   static const String users = 'Users';
   static const String chatHistory = 'Chat History';
+  static const String typeMessage = 'Type a message...';
 
   /// Time ago strings
   static const String justNow = 'Just now';
@@ -18,5 +19,15 @@ class Strings {
   static String daysAgo(int days) => '$days days ago';
 
   static const String online = 'Online';
+  static const String typing = 'typing...';
   static const String plus9 = '9+';
+  static const String selfInitial = 'I';
+
+  /// Dictionary
+  static const String synonyms = 'Synonyms';
+  static const String antonyms = 'Antonyms';
+  static const String loading = 'Loading...';
+  static const String errorLoadingDefinition = 'Error loading definition';
+  static const String noDefinitionFound = 'No definition found';
+  static const String trySearchingAnotherWord = 'Try searching for another word';
 }

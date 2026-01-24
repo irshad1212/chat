@@ -30,10 +30,10 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Container(
               height: 46.h,
-              padding: EdgeInsets.all(3.r),
+              padding: .all(3.r),
               decoration: BoxDecoration(
                 color: AppColors.chatBubbleOther,
-                borderRadius: BorderRadius.circular(40.r),
+                borderRadius: .circular(40.r),
               ),
               child: TabBar(
                 controller: tabController,
@@ -41,16 +41,16 @@ class HomeAppBar extends StatelessWidget {
                 tabAlignment: .center,
                 dividerColor: Colors.transparent,
                 splashFactory: NoSplash.splashFactory,
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
-                labelPadding: EdgeInsets.symmetric(horizontal: 26.w),
+                overlayColor: .all(Colors.transparent),
+                labelPadding: .symmetric(horizontal: 26.w),
                 labelColor: AppColors.textColor,
                 unselectedLabelColor: AppColors.textColorSecondary,
                 labelStyle: TextStyles.inter.bold,
                 unselectedLabelStyle: TextStyles.inter.bold,
                 indicator: BoxDecoration(
                   color: AppColors.white,
-                  borderRadius: BorderRadius.circular(40.r),
-                  border: Border.all(color: AppColors.borderGrey),
+                  borderRadius: .circular(40.r),
+                  border: .all(color: AppColors.borderGrey),
                 ),
                 indicatorSize: .tab,
                 tabs: const [

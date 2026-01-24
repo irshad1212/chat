@@ -49,5 +49,16 @@ class AppColors {
 
   /// Border colors
   static const Color borderGrey = Color(0xFFE7E7E7);
+
   static const Color borderLight = Color(0xFFE6E7EB);
+  static const Color messageBorder = Color(0xffECECEC);
+
+  /// Status
+  static const Color onlineStatus = Color(0xFF00C764);
+
+  /// Shadows
+  static Color boxShadow = const Color(0xFF000000).withValues(alpha: 0.04);
+
+  /// Dictionary
+  static const Color antonymRed = Color(0xFFEF5350); // Red 400
 }
