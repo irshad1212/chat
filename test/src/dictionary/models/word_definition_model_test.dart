@@ -250,7 +250,7 @@ void main() {
       });
 
       test('should parse long definition text', () {
-        final longDefinition =
+        const longDefinition =
             'This is a very long definition that contains '
             'multiple sentences and explains the word in great detail. '
             'It may include technical terminology and various examples.';

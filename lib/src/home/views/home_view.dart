@@ -1,5 +1,6 @@
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/src/home/views/widgets/user_list.dart';
+import 'package:chat/src/home/views/widgets/user_added_snackbar.dart';
 import 'package:chat/src/shared/widgets/view_state_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,11 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
       child: Scaffold(
         body: Column(
           children: [
-            HomeAppBar(animationController: _appBarAnimController, tabController: _tabController),
+            HomeAppBar(
+              animationController: _appBarAnimController,
+              tabController: _tabController,
+              customTab: true, // Set to false to use default TabBar
+            ),
             Expanded(
               child: Stack(
                 children: [
@@ -109,7 +114,10 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
         floatingActionButton: SlideTransition(
           position: _fabSlideAnimation,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              final username = ref.read(homeNotifierProvider.notifier).addRandomUser();
+              ScaffoldMessenger.of(context).showSnackBar(UserAddedSnackbar(username: username));
+            },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             child: Container(

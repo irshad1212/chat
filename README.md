@@ -59,7 +59,17 @@ lib/
 
 ## 🧪 Testing
 
-The project includes a comprehensive test suite covering Models, Repositories, and Notifiers.
+The project includes a comprehensive test suite covering Models, Repositories, Notifiers, and UI widgets.
+
+**Test Structure:**
+```
+test/
+├── src/
+│   ├── chat/           # Unit, integration, and model tests
+│   ├── dictionary/     # Notifier and model tests
+│   └── home/           # Widget tests (ChatTile, etc.)
+└── README.md
+```
 
 To run all tests:
 ```bash
