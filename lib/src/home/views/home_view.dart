@@ -73,7 +73,12 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
                       ignoring: currentIndex != 0,
                       child: ViewStateBuilder(
                         loaderState: userListState,
-                        onLoading: const Center(child: CircularProgressIndicator()),
+                        onLoading: const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primaryBlue,
+                            strokeCap: .round,
+                          ),
+                        ),
                         onError: (failure) => Center(child: Text('Error: ${failure.message}')),
                         onSuccess: (data) => RefreshIndicator(
                           color: AppColors.primaryBlue,
@@ -93,7 +98,12 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
                       ignoring: currentIndex != 1,
                       child: ViewStateBuilder(
                         loaderState: historyListState,
-                        onLoading: const Center(child: CircularProgressIndicator()),
+                        onLoading: const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primaryBlue,
+                            strokeCap: .round,
+                          ),
+                        ),
                         onError: (failure) => Center(child: Text('Error: ${failure.message}')),
                         onSuccess: (data) => RefreshIndicator(
                           color: AppColors.primaryBlue,
