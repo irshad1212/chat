@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:chat/src/home/models/chat_tile_model.dart';
 import 'package:chat/src/home/repository/home_repository.dart';
 import 'package:chat/src/home/repository/home_repository_provider.dart';
 import 'package:chat/src/home/states/home_state.dart';
@@ -67,5 +70,54 @@ class HomeNotifier extends _$HomeNotifier {
     } else if (direction == ScrollDirection.forward && !state.isAppBarVisible) {
       setAppBarVisibility(true);
     }
+  }
+
+  /// Adds a random user with online status at position 0.
+  /// Returns the generated username for snackbar display.
+  String addRandomUser() {
+    final random = Random();
+    final firstNames = [
+      'John',
+      'Jane',
+      'Alex',
+      'Emma',
+      'Liam',
+      'Olivia',
+      'Noah',
+      'Sophia',
+      'Lucas',
+      'Mia',
+    ];
+    final lastNames = [
+      'Smith',
+      'Johnson',
+      'Williams',
+      'Brown',
+      'Jones',
+      'Davis',
+      'Miller',
+      'Wilson',
+      'Moore',
+      'Taylor',
+    ];
+
+    final firstName = firstNames[random.nextInt(firstNames.length)];
+    final lastName = lastNames[random.nextInt(lastNames.length)];
+    final fullName = '$firstName $lastName';
+    final userId = 'user_${DateTime.now().millisecondsSinceEpoch}';
+
+    final newUser = UserTileModel(userId: userId, fullName: fullName, isOnline: true);
+
+    // Get current list and insert at position 0
+    final currentState = state.userListState;
+    if (currentState is Success<List<UserTileModel>>) {
+      final List<UserTileModel> updatedList = [newUser, ...currentState.data ?? []];
+      state = state.copyWith(userListState: LoaderState.success(data: updatedList));
+    } else {
+      // If list wasn't loaded yet, create new list with just this user
+      state = state.copyWith(userListState: LoaderState.success(data: [newUser]));
+    }
+
+    return fullName;
   }
 }
