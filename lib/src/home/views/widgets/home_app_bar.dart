@@ -5,13 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:chat/core/constants/strings.dart';
 import 'package:chat/core/theme/colors.dart';
 import 'package:chat/core/theme/text_styles.dart';
+import 'package:chat/src/home/views/widgets/custom_tab_bar.dart';
 import 'package:chat/utils/helpers/extensions.dart';
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key, required this.animationController, required this.tabController});
+  const HomeAppBar({
+    super.key,
+    required this.animationController,
+    required this.tabController,
+    this.customTab = false,
+  });
 
   final AnimationController animationController;
   final TabController tabController;
+  final bool customTab;
 
   @override
   Widget build(BuildContext context) {
@@ -35,29 +42,31 @@ class HomeAppBar extends StatelessWidget {
                 color: AppColors.chatBubbleOther,
                 borderRadius: .circular(40.r),
               ),
-              child: TabBar(
-                controller: tabController,
-                isScrollable: true,
-                tabAlignment: .center,
-                dividerColor: Colors.transparent,
-                splashFactory: NoSplash.splashFactory,
-                overlayColor: .all(Colors.transparent),
-                labelPadding: .symmetric(horizontal: 26.w),
-                labelColor: AppColors.textColor,
-                unselectedLabelColor: AppColors.textColorSecondary,
-                labelStyle: TextStyles.inter.bold,
-                unselectedLabelStyle: TextStyles.inter.bold,
-                indicator: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: .circular(40.r),
-                  border: .all(color: AppColors.borderGrey),
-                ),
-                indicatorSize: .tab,
-                tabs: const [
-                  Tab(text: Strings.users),
-                  Tab(text: Strings.chatHistory),
-                ],
-              ),
+              child: customTab
+                  ? CustomTabBar(controller: tabController)
+                  : TabBar(
+                      controller: tabController,
+                      isScrollable: true,
+                      tabAlignment: .center,
+                      dividerColor: Colors.transparent,
+                      splashFactory: NoSplash.splashFactory,
+                      overlayColor: .all(Colors.transparent),
+                      labelPadding: .symmetric(horizontal: 26.w),
+                      labelColor: AppColors.textColor,
+                      unselectedLabelColor: AppColors.textColorSecondary,
+                      labelStyle: TextStyles.inter.bold,
+                      unselectedLabelStyle: TextStyles.inter.bold,
+                      indicator: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: .circular(40.r),
+                        border: .all(color: AppColors.borderGrey),
+                      ),
+                      indicatorSize: .tab,
+                      tabs: const [
+                        Tab(text: Strings.users),
+                        Tab(text: Strings.chatHistory),
+                      ],
+                    ),
             ),
           ],
         ),

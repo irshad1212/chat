@@ -57,7 +57,11 @@ class _HomeViewState extends ConsumerState<HomeView> with TickerProviderStateMix
       child: Scaffold(
         body: Column(
           children: [
-            HomeAppBar(animationController: _appBarAnimController, tabController: _tabController),
+            HomeAppBar(
+              animationController: _appBarAnimController,
+              tabController: _tabController,
+              customTab: true, // Set to false to use default TabBar
+            ),
             Expanded(
               child: Stack(
                 children: [
