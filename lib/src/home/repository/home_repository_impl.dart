@@ -8,7 +8,7 @@ import 'package:remote_client/remote_client.dart';
 class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<HistoryTileModel>>> getMessageList() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     try {
       final List<dynamic> jsonList = jsonDecode(_mockChatHistoryData);
       final List<HistoryTileModel> list = jsonList
@@ -22,7 +22,7 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<UserTileModel>>> getUserList() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     try {
       final List<dynamic> jsonList = jsonDecode(_mockUserData);
       final List<UserTileModel> list = jsonList

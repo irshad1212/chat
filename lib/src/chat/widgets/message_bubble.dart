@@ -100,6 +100,7 @@ class MessageBubble extends StatelessWidget {
         onTapDown: (details) {
           final tappedWord = _getWordAtPosition(context, text, details.localPosition, isOther);
           if (tappedWord != null && tappedWord.isNotEmpty) {
+            FocusManager.instance.primaryFocus?.unfocus();
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,

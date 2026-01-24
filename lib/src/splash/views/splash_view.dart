@@ -43,9 +43,10 @@ class _SplashViewState extends State<SplashView> {
                   foregroundColor: Colors.transparent,
                   elevation: 0,
                   systemOverlayStyle: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.transparent,
+                    statusBarColor: Colors.white,
                     statusBarBrightness: Brightness.light,
                     statusBarIconBrightness: Brightness.dark,
+                    systemNavigationBarColor: Colors.white,
                     systemNavigationBarIconBrightness: Brightness.dark,
                   ),
                 ),

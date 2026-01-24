@@ -89,7 +89,7 @@ class _WordMeaningBottomSheetState extends ConsumerState<WordMeaningBottomSheet>
     return Column(
       mainAxisAlignment: .center,
       children: [
-        const CircularProgressIndicator(color: AppColors.primaryBlue),
+        const CircularProgressIndicator(color: AppColors.primaryBlue, strokeCap: .round),
         SizedBox(height: LayoutDimensions.spacingVerticalL),
         Text(Strings.loading, style: TextStyles.inter.medium),
       ],
