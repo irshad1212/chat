@@ -1,13 +1,13 @@
 # Flutter Chat Application - Machine Test Submission
 
-This project is a submission for the technical machine test. It implements a chat application with additional required features using **Flutter** and **MVVM Architecture**.
+This project is a submission for the technical machine test. It implements a chat application with additional required features using **Flutter** and **MVVM**.
 
 ## 📌 Features Implemented
 
 *   **Chat Module**: Real-time-like messaging UI with support for text messages, typing indicators, and message status (sent, delivered, seen).
 *   **Dictionary Module**: Word lookup functionality with definitions, phonetics, and examples.
 *   **Home Module**: User listing with online status and chat history.
-*   **Architecture**: Built using **MVVM Architecture** with **Repository Pattern** adhering to **SOLID** principles.
+*   **Architecture**: Built using **MVVM** with **Repository Pattern** adhering to **SOLID** principles.
 *   **State Management**: **Riverpod** for dependency injection and state management.
 *   **MVVM**: Separation of UI and business logic using Notifiers and ViewModels.
 
@@ -20,7 +20,7 @@ This project is a submission for the technical machine test. It implements a cha
 
 ## Project Structure
 
-This project follows a modular **Clean Architecture** approach:
+This project follows a modular **Follows a Clean Architecture approach, utilizing MVVM for the presentation layer and the Repository Pattern for data abstraction.** approach:
 
 ```
 lib/
